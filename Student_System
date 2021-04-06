@@ -1,0 +1,230 @@
+package Student_System;
+
+public class Student {
+	private String studentID;
+	private String firstName;
+	private String lastName;
+	
+	public Student(String studentID, String firstName, String lastName) {
+		super();
+		this.studentID = studentID;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+	
+	public Student() {
+		super();
+	}
+
+	public String getStudentID() {
+		return studentID;
+	}
+	public void setStudentID(String studentID) {
+		this.studentID = studentID;
+	}
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+}
+======================================================================================================================
+package Student_System;
+
+public class Subject {
+	private String subjectID;
+	private String subjectName;
+	
+	public Subject() {
+		super();
+	}
+	public Subject(String subjectID, String subjectName) {
+		super();
+		this.subjectID = subjectID;
+		this.subjectName = subjectName;
+	}
+	public String getSubjectID(){
+		return this.subjectID;
+	}
+	public void setSubjectID(String subjectID){
+		this.subjectID = subjectID;
+	}
+	public String getSubjectName() {
+		return subjectName;
+	}
+	public void setSubjectName(String subjectName) {
+		this.subjectName = subjectName;
+	}
+	@Override
+	public String toString() {
+		String info = "";
+		info = "课程代码：" + this.subjectID + " " +"课程名称：" + this.subjectName;
+		return info;
+	}
+}
+=================================================================================================================
+package Student_System;
+
+public class ClassList {
+	private int semester;
+	private int year;
+	private Subject subj;
+	private Student stu1;
+	private Student stu2;
+
+	public ClassList(int semester, int year, Subject subj, Student stu1, Student stu2) {
+		super();
+		this.semester = semester;
+		this.year = year;
+		this.subj = subj;
+		this.stu1 = stu1;
+		this.stu2 = stu2;
+	}
+
+	public ClassList() {
+		super();
+	}
+
+	public int getSemester() {
+		return semester;
+	}
+
+	public void setSemester(int semester) {
+		this.semester = semester;
+	}
+
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
+	}
+
+	public Subject getSubj() {
+		return subj;
+	}
+
+	public void setSubj(Subject subj) {
+		this.subj = subj;
+	}
+
+	public Student getStu1() {
+		return stu1;
+	}
+
+	public void setStu1(Student stu1) {
+		this.stu1 = stu1;
+	}
+
+	public Student getStu2() {
+		return stu2;
+	}
+
+	public void setStu2(Student stu2) {
+		this.stu2 = stu2;
+	}
+
+	@Override
+	public String toString() {
+		String info = "";
+		info = "学年"+this.year +"  "+"学期" + this.semester + "\n";
+		info += this.subj.toString()+"\n";
+		info += "学号\t姓名"+"\n";
+		info += stu1.getStudentID() + "\t" + stu1.getFirstName() + stu1.getLastName()+"\n";
+		info += stu2.getStudentID() + "\t" + stu2.getFirstName() + stu2.getLastName()+"\n";
+		return info;
+	}
+}
+=========================================================================================================================
+package Student_System;
+
+import java.util.Scanner;
+
+public class Driver {
+	private static ClassList list = null;
+	private static String answer;
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int choose = menu();
+		
+		while(choose!=3){
+			switch(choose){
+			case 1:if(list == null){
+				createList();break;
+			}
+			else{
+				Scanner scan = new Scanner(System.in);
+				System.out.println("已经创建，是否需要重新创建？（y/n）");
+				answer = scan.next();
+				if(answer.equals("n")){
+					
+				}
+			}
+			case 2:
+				if(list == null){
+					System.out.println("请先执行第一步！");
+					break;
+				}
+				printList();break;
+			default:System.out.print("输入错误，请重新输入：");
+			}
+			choose = menu();
+		}
+		System.out.println("程序退出，欢迎下次使用！");
+	}
+	public static int menu(){
+		int choose = 0;
+		
+		System.out.println("1.创建信息列表");
+		System.out.println("2.打印信息列表");
+		System.out.println("3.退出");
+		System.out.print("请输入你的选择：");
+		Scanner scan = new Scanner(System.in);
+		choose = scan.nextInt();
+		return choose;
+	}
+	public static void createList(){
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.print("请输入学年：");
+		int year = scan.nextInt();
+		System.out.print("请输入学期：");
+		int semester = scan.nextInt();
+		
+		System.out.print("请输入课程代码：");
+		String subID = scan.next();
+		System.out.print("请输入课程名称：");
+		String subName = scan.next();
+		Subject subj = new Subject(subID,subName);
+		
+		System.out.print("请输入第一个学生的学号：");
+		String ID1 = scan.next();
+		System.out.print("请输入第一个学生的姓：");
+		String xing1 = scan.next();
+		System.out.print("请输入第一个学生的名：");
+		String ming1 = scan.next();
+		Student stu1 = new Student(ID1,xing1,ming1);
+		
+		System.out.print("请输入第二个学生的学号：");
+		String ID2 = scan.next();
+		System.out.print("请输入第二个学生的姓：");
+		String xing2 = scan.next();
+		System.out.print("请输入第二个学生的名：");
+		String ming2 = scan.next();
+		Student stu2 = new Student(ID2,xing2,ming2);
+		
+		list = new ClassList(semester,year,subj,stu1,stu2);
+	}
+
+	public static void printList(){
+		System.out.println(list.toString());
+	}
+}
